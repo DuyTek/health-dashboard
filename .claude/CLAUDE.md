@@ -14,7 +14,8 @@ Read [doc/CONVENTIONS.md](./doc/CONVENTIONS.md) before writing code.
 - Assistant backend: `api/chat.ts` (Vercel Node function) → `server/*` (ADK
   `LlmAgent`), streaming Server-Sent Events. Locally the same handler runs in
   `server/dev-server.ts`, and Vite proxies `/api` to it.
-- Tests: Vitest + React Testing Library + msw. The LLM is always mocked in tests.
+- Tests: Vitest + React Testing Library; `fetch` is stubbed with in-memory SSE
+  responses (`src/test/sse.ts`). The LLM is always mocked in tests.
 
 ## Commands
 
@@ -54,10 +55,10 @@ The repo root holds the submission documents the reviewers read (brief §5):
 | `LLM_APPROACH.md`          | Data → prompt, prompt structure, conversation context, validation, anti-hallucination |
 | `SETUP_INSTRUCTIONS.md`    | Prerequisites, install, run, test, deploy, **environment variables table**            |
 
-**Rule: every change to the technical behaviour or source code must update
+**Rule: every change to the technical behavior or source code must update
 the affected docs in the same commit.** Before you commit, ask:
 
-1. Did behaviour, architecture, a command, a dependency or an env var change?
+1. Did behavior, architecture, a command, a dependency or an env var change?
    Update README / SETUP_INSTRUCTIONS.
 2. Did what the user sees, or why, change? Update KEY_PRODUCT_DECISIONS.
 3. Did the prompt, the data given to the model, tools, streaming, parsing or
