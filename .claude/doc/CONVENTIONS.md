@@ -48,7 +48,7 @@ User-facing text lives in `src/config/constants/`. New copy follows this pattern
 ## Imports
 
 - `src/` UI code uses the `@/` alias (`@/components/ui/card`).
-- `server/`, `api/`, and the isomorphic modules the server imports (`src/types`, `src/data`, `src/lib/health`) use **relative imports only**, so the Vercel function bundler resolves them.
+- `server/`, `api/`, and the isomorphic modules the server imports (`src/types`, `src/data`, `src/lib/health`) use **relative imports with an explicit `.js` extension** (`'../src/data/index.js'`). Vercel compiles functions to ESM per file without bundling, and Node's ESM loader does not add extensions. `server/imports.test.ts` enforces this.
 - Never import `server/` from `src/`.
 
 ## UI states

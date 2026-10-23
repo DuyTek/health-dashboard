@@ -39,8 +39,9 @@ src/features/   dashboard/ and assistant/ feature folders
 src/config/constants/  User-facing copy
 ```
 
-The isomorphic folders and `server/` use **relative imports only**, because the
-Vercel function bundler does not resolve the `@/` alias. `src/` UI code uses `@/`.
+The isomorphic folders, `server/` and `api/` use **relative imports with explicit `.js`**
+(no `@/`), because Vercel runs functions as unbundled ESM (enforced by
+`server/imports.test.ts`). `src/` UI code uses `@/`.
 
 ## Submission docs: keep them current (mandatory)
 
