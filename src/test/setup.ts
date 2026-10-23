@@ -13,14 +13,17 @@ class ResizeObserverStub {
 	disconnect() {}
 }
 globalThis.ResizeObserver ??= ResizeObserverStub as unknown as typeof ResizeObserver
-window.matchMedia ??= ((query: string) => ({
-	matches: false,
-	media: query,
-	onchange: null,
-	addListener: () => {},
-	removeListener: () => {},
-	addEventListener: () => {},
-	removeEventListener: () => {},
-	dispatchEvent: () => false,
-})) as typeof window.matchMedia
-Element.prototype.scrollIntoView ??= () => {}
+// Server tests opt into `@vitest-environment node`, where there is no DOM.
+if (typeof window !== 'undefined') {
+	window.matchMedia ??= ((query: string) => ({
+		matches: false,
+		media: query,
+		onchange: null,
+		addListener: () => {},
+		removeListener: () => {},
+		addEventListener: () => {},
+		removeEventListener: () => {},
+		dispatchEvent: () => false,
+	})) as typeof window.matchMedia
+	Element.prototype.scrollIntoView ??= () => {}
+}
