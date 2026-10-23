@@ -1,8 +1,16 @@
 import type { HealthData } from '../types/health'
+import { generateHealthData } from './generate'
 
-// STUB (Phase 0). Owned by feat/health-data-dashboard: replace with the
-// seeded persona + 90-day dataset. Must be deterministic and isomorphic
-// (imported by both the client and server/agent).
+// Public entry point for the fictional dataset. Isomorphic and deterministic:
+// the dashboard and the assistant's server tools see exactly the same data.
+
+let cached: HealthData | null = null
+
+/** The persona's 90-day dataset (generated once per process, then memoized). */
 export function getHealthData(): HealthData {
-	throw new Error('getHealthData: not implemented yet')
+	cached ??= generateHealthData()
+	return cached
 }
+
+export { generateHealthData, DEFAULT_SEED, type GenerateOptions } from './generate'
+export { AS_OF, DATASET_DAYS, GOALS, PERSONA, ROUTINE_START } from './persona'
