@@ -97,8 +97,11 @@ The results of a manual run against `gemini-flash-latest` are recorded in
 Live at **https://health-dashboard-ashy-eta.vercel.app/**. The Vercel project is
 connected to the GitHub repo, so every push to `main` deploys to production.
 
-The app is a static Vite build plus one Node.js function, and needs no
-`vercel.json`:
+The app is a static Vite build plus one Node.js function. `vercel.json` only pins
+the function region to `sin1` (Singapore). **The Gemini API rejects requests from
+some regions** ("User location is not supported"), including Hong Kong (`hkg1`),
+which Vercel picked by default for this project. If you change the region, choose
+one where the Gemini API is available.
 
 1. Import the Git repository in the Vercel dashboard.
 2. Framework preset: **Vite**. Build command: `npm run build`. Output directory:
@@ -123,14 +126,15 @@ Vercel compiles functions to ESM per file without bundling (enforced by
 
 ## Troubleshooting
 
-| Symptom                                                                                       | Fix                                                                                                                                        |
-| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `[api] GEMINI_API_KEY is not set` at startup / assistant says it is not configured            | Copy `.env.example` to `.env`, add a key from https://aistudio.google.com/apikey, restart `npm run dev` (the dashboard works without it).  |
-| Assistant says the free AI quota is busy (`rate_limited`)                                     | Free-tier quota (requests per minute/day) hit. Wait a minute, or use another key/project.                                                  |
-| Assistant says it is not configured but a key is set                                          | The key was rejected (`API_KEY_INVALID`/403). Check it in AI Studio and that `.env` has no quotes or spaces.                               |
-| `[api] Port 3001 is already in use`                                                           | Stop the other process, or set `API_PORT` and update the `/api` proxy target in `vite.config.ts` to match.                                 |
-| Chat requests fail with a proxy error in the browser console                                  | The API server isn't running. `npm run dev` starts both; `npm run dev:api` starts only the API.                                            |
-| Answers stop mid-way with a timeout                                                           | The model took more than 45 s. Retry; if frequent, try a lighter `GEMINI_MODEL`.                                                           |
-| Every question fails with `upstream_error` and the API log shows a 400 about "thinking level" | The model behind `GEMINI_MODEL` doesn't support the configured level. Set `GEMINI_THINKING_LEVEL=default` (or another level).              |
-| Live site: assistant says it is not configured                                                | `GEMINI_API_KEY` is missing in Vercel → Settings → Environment Variables (Production), or the deployment predates it. Add it and redeploy. |
-| `ERR_MODULE_NOT_FOUND` for a server file on Vercel                                            | A relative import in `api/`, `server/` or a shared `src/` module is missing its `.js` extension. `npm test` (`imports.test.ts`) flags it.  |
+| Symptom                                                                                       | Fix                                                                                                                                                    |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `[api] GEMINI_API_KEY is not set` at startup / assistant says it is not configured            | Copy `.env.example` to `.env`, add a key from https://aistudio.google.com/apikey, restart `npm run dev` (the dashboard works without it).              |
+| Assistant says the free AI quota is busy (`rate_limited`)                                     | Free-tier quota (requests per minute/day) hit. Wait a minute, or use another key/project.                                                              |
+| Assistant says it is not configured but a key is set                                          | The key was rejected (`API_KEY_INVALID`/403). Check it in AI Studio and that `.env` has no quotes or spaces.                                           |
+| `[api] Port 3001 is already in use`                                                           | Stop the other process, or set `API_PORT` and update the `/api` proxy target in `vite.config.ts` to match.                                             |
+| Chat requests fail with a proxy error in the browser console                                  | The API server isn't running. `npm run dev` starts both; `npm run dev:api` starts only the API.                                                        |
+| Answers stop mid-way with a timeout                                                           | The model took more than 45 s. Retry; if frequent, try a lighter `GEMINI_MODEL`.                                                                       |
+| Every question fails with `upstream_error` and the API log shows a 400 about "thinking level" | The model behind `GEMINI_MODEL` doesn't support the configured level. Set `GEMINI_THINKING_LEVEL=default` (or another level).                          |
+| Live site: every question fails with `upstream_error` while local dev works                   | The function region is one the Gemini API doesn't serve (e.g. `hkg1`). Keep `regions` in `vercel.json` on a supported region such as `sin1` or `iad1`. |
+| Live site: assistant says it is not configured                                                | `GEMINI_API_KEY` is missing in Vercel → Settings → Environment Variables (Production), or the deployment predates it. Add it and redeploy.             |
+| `ERR_MODULE_NOT_FOUND` for a server file on Vercel                                            | A relative import in `api/`, `server/` or a shared `src/` module is missing its `.js` extension. `npm test` (`imports.test.ts`) flags it.              |

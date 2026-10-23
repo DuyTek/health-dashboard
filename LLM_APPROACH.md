@@ -172,6 +172,7 @@ Every reply ended with a valid `<meta>` block, including after replayed turns. E
 - The model can still misread numbers it was given; there is no post-hoc numeric fact-check of the answer.
 - (Client) A dropped stream is not resumed; the user retries instead.
 - (Client) Long answers are re-parsed as markdown on every delta. That is fine at chat-answer sizes but not optimized for very long outputs.
+- **Region-dependent:** the Gemini API isn't served in every region. The Vercel function is pinned to `sin1` in `vercel.json`, because Vercel's default for this project (`hkg1`, Hong Kong) gets every Gemini call rejected.
 
 ## Tradeoffs
 
