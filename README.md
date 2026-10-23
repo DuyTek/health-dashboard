@@ -3,7 +3,7 @@
 A responsive health and wellness dashboard for a fictional user, with a floating AI
 assistant that answers questions grounded in the user's own data.
 
-- **Live demo:** _TBD — added after deployment_
+- **Live demo:** https://health-dashboard-ashy-eta.vercel.app/
 - **Stack:** React 19 · TypeScript · Redux Toolkit · Vite · Tailwind v4 · shadcn/ui (Radix) · Recharts (shadcn charts) · Google ADK (TypeScript) · Gemini `gemini-flash-latest`
 
 ## Documentation

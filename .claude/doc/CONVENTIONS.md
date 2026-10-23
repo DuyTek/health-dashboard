@@ -40,6 +40,7 @@ Complements [../CLAUDE.md](../CLAUDE.md) (project overview, doc-update rule).
 - One folder per feature under `src/features/` (`dashboard`, `assistant`).
 - Redux: one slice per domain in `src/store/` (`healthSlice`, `chatSlice`). Use the typed hooks `useAppDispatch` / `useAppSelector` from `@/store`.
 - Pure logic (math, parsing, prompt building) lives outside components so it can be unit-tested.
+- `api/` holds Vercel function entry points **only**. Vercel deploys every file there as a public function, tests included, so handler tests live in `server/`.
 
 ## Content/copy
 

@@ -7,7 +7,7 @@ import type { ChatStreamEvent } from '../src/types/chat.js'
 const streamChat = vi.fn<(body: unknown, deps: unknown) => AsyncGenerator<ChatStreamEvent>>()
 vi.mock('../server/chat.js', () => ({ streamChat }))
 
-const { default: handler, config } = await import('./chat.js')
+const { default: handler, config } = await import('../api/chat.js')
 
 class MockResponse extends EventEmitter {
 	statusCode = 200
