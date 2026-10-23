@@ -1,0 +1,31 @@
+# Dependencies & build
+node_modules
+dist
+dist-ssr
+coverage
+.vercel
+*.local
+
+# Secrets — never commit real keys (see SETUP_INSTRUCTIONS.md)
+.env
+.env.*
+!.env.example
+
+# Test brief (not part of the submission)
+*.docx
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.sw?
+
+# Claude Code local state
+.claude/settings.local.json
+.claude/worktrees
