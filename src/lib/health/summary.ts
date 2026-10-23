@@ -9,11 +9,11 @@ import type {
 	MetricKey,
 	MetricSummary,
 	Trend,
-} from '../../types/health'
-import { addDays, inWindow } from './dates'
-import { buildInsights } from './insights'
-import { getMetricValue, mean, METRIC_KEYS, METRIC_META, roundTo } from './metrics'
-import { valuesInWindow } from './series'
+} from '../../types/health.js'
+import { addDays, inWindow } from './dates.js'
+import { buildInsights } from './insights.js'
+import { getMetricValue, mean, METRIC_KEYS, METRIC_META, roundTo } from './metrics.js'
+import { valuesInWindow } from './series.js'
 
 // Pure: HealthData in, HealthSummary out. Shared by the dashboard and the
 // assistant's system prompt, so both always quote the same numbers.

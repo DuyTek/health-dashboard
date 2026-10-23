@@ -1,6 +1,6 @@
-import { startOfWeek } from './dates'
-import { makeData, makeDays } from './fixtures'
-import { aggregateWeekly, selectDays, selectSeries } from './series'
+import { startOfWeek } from './dates.js'
+import { makeData, makeDays } from './fixtures.js'
+import { aggregateWeekly, selectDays, selectSeries } from './series.js'
 
 const ASOF = '2026-03-31' // a Tuesday
 

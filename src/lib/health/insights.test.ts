@@ -1,7 +1,7 @@
-import type { Goal } from '../../types/health'
-import { makeData, makeDays } from './fixtures'
-import { formatDuration } from './insights'
-import { buildHealthSummary } from './summary'
+import type { Goal } from '../../types/health.js'
+import { makeData, makeDays } from './fixtures.js'
+import { formatDuration } from './insights.js'
+import { buildHealthSummary } from './summary.js'
 
 const ASOF = '2026-03-31'
 

@@ -1,4 +1,4 @@
-import type { DailyMetrics, MetricKey } from '../../types/health'
+import type { DailyMetrics, MetricKey } from '../../types/health.js'
 
 export interface MetricMeta {
 	label: string

@@ -1,4 +1,4 @@
-import type { Goal, Persona } from '../types/health'
+import type { Goal, Persona } from '../types/health.js'
 
 // Fictional user. The brief referenced a persona and dataset that were not
 // attached, so this one is invented to be coherent and realistic.

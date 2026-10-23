@@ -1,4 +1,4 @@
-import type { IsoDate } from '../../types/health'
+import type { IsoDate } from '../../types/health.js'
 
 // Calendar-date helpers on `YYYY-MM-DD` strings. All arithmetic is done in UTC
 // so results never depend on the runtime's time zone.

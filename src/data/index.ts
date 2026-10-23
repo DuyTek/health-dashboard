@@ -1,5 +1,5 @@
-import type { HealthData } from '../types/health'
-import { generateHealthData } from './generate'
+import type { HealthData } from '../types/health.js'
+import { generateHealthData } from './generate.js'
 
 // Public entry point for the fictional dataset. Isomorphic and deterministic:
 // the dashboard and the assistant's server tools see exactly the same data.
@@ -12,5 +12,5 @@ export function getHealthData(): HealthData {
 	return cached
 }
 
-export { generateHealthData, DEFAULT_SEED, type GenerateOptions } from './generate'
-export { AS_OF, DATASET_DAYS, GOALS, PERSONA, ROUTINE_START } from './persona'
+export { generateHealthData, DEFAULT_SEED, type GenerateOptions } from './generate.js'
+export { AS_OF, DATASET_DAYS, GOALS, PERSONA, ROUTINE_START } from './persona.js'

@@ -1,6 +1,6 @@
-import { addDays } from '../lib/health/dates'
-import { AS_OF, DATASET_DAYS, generateHealthData, getHealthData, ROUTINE_START } from './index'
-import { gaussian, mulberry32 } from './prng'
+import { addDays } from '../lib/health/dates.js'
+import { AS_OF, DATASET_DAYS, generateHealthData, getHealthData, ROUTINE_START } from './index.js'
+import { gaussian, mulberry32 } from './prng.js'
 
 describe('mulberry32', () => {
 	it('is deterministic for a seed and stays in [0, 1)', () => {

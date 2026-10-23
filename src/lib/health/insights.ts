@@ -7,9 +7,9 @@ import type {
 	IsoDate,
 	MetricKey,
 	MetricSummary,
-} from '../../types/health'
-import { daysBetween, inWindow } from './dates'
-import { mean } from './metrics'
+} from '../../types/health.js'
+import { daysBetween, inWindow } from './dates.js'
+import { mean } from './metrics.js'
 
 // Deterministic, rule-based observations. No LLM involved: the same data always
 // produces the same insights, and every number in them is traceable.

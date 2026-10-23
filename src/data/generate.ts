@@ -1,4 +1,4 @@
-import { addDays, dayOfWeek, daysBetween } from '../lib/health/dates'
+import { addDays, dayOfWeek, daysBetween } from '../lib/health/dates.js'
 import type {
 	Activity,
 	ActivityType,
@@ -6,9 +6,9 @@ import type {
 	HealthData,
 	IsoDate,
 	SleepRecord,
-} from '../types/health'
-import { AS_OF, DATASET_DAYS, GOALS, PERSONA, ROUTINE_START } from './persona'
-import { chance, gaussian, mulberry32, type Rng } from './prng'
+} from '../types/health.js'
+import { AS_OF, DATASET_DAYS, GOALS, PERSONA, ROUTINE_START } from './persona.js'
+import { chance, gaussian, mulberry32, type Rng } from './prng.js'
 
 // Deterministic 90-day dataset for the persona. The story it tells:
 // - Before ROUTINE_START: ~5,300 steps/day, an occasional weekend ride.

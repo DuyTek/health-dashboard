@@ -1,5 +1,5 @@
-import type { DailyMetrics, Goal, HealthData, IsoDate, Persona } from '../../types/health'
-import { addDays } from './dates'
+import type { DailyMetrics, Goal, HealthData, IsoDate, Persona } from '../../types/health.js'
+import { addDays } from './dates.js'
 
 // Small hand-built fixtures for unit tests (not shipped in the UI bundle).
 

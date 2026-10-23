@@ -1,13 +1,13 @@
-import type { Activity, Goal, MetricSummary } from '../../types/health'
-import { getHealthData } from '../../data'
-import { makeData, makeDay, makeDays } from './fixtures'
+import type { Activity, Goal, MetricSummary } from '../../types/health.js'
+import { getHealthData } from '../../data/index.js'
+import { makeData, makeDay, makeDays } from './fixtures.js'
 import {
 	buildHealthSummary,
 	computeGoalProgress,
 	percentChange,
 	summarizeMetric,
 	trendFromChange,
-} from './summary'
+} from './summary.js'
 
 const ASOF = '2026-03-31'
 

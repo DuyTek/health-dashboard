@@ -8,9 +8,16 @@ export {
 	summarizeMetric,
 	trendFromChange,
 	RECENT_ACTIVITY_LIMIT,
-} from './summary'
-export { buildInsights, formatDuration, type InsightInput } from './insights'
-export { getMetricValue, mean, METRIC_KEYS, METRIC_META, roundTo, type MetricMeta } from './metrics'
+} from './summary.js'
+export { buildInsights, formatDuration, type InsightInput } from './insights.js'
+export {
+	getMetricValue,
+	mean,
+	METRIC_KEYS,
+	METRIC_META,
+	roundTo,
+	type MetricMeta,
+} from './metrics.js'
 export {
 	aggregateWeekly,
 	endOfWeek,
@@ -20,5 +27,5 @@ export {
 	type RangeDays,
 	type SeriesPoint,
 	type WeeklyRow,
-} from './series'
-export { addDays, dayOfWeek, daysBetween, inWindow, startOfWeek } from './dates'
+} from './series.js'
+export { addDays, dayOfWeek, daysBetween, inWindow, startOfWeek } from './dates.js'

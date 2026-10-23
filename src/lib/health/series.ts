@@ -1,6 +1,6 @@
-import type { DailyMetrics, HealthData, IsoDate, MetricKey } from '../../types/health'
-import { addDays, inWindow, startOfWeek } from './dates'
-import { getMetricValue, mean } from './metrics'
+import type { DailyMetrics, HealthData, IsoDate, MetricKey } from '../../types/health.js'
+import { addDays, inWindow, startOfWeek } from './dates.js'
+import { getMetricValue, mean } from './metrics.js'
 
 // Pure selectors for charts and agent tools.
 
