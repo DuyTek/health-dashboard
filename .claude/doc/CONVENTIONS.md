@@ -58,5 +58,5 @@ Every data-driven view handles **loading** (skeleton), **error** (alert + retry 
 ## Testing
 
 - Vitest + React Testing Library. Use `renderWithStore` from `src/test/render.tsx` for components that need Redux.
-- Mock the network: stub `fetch` with the SSE helpers in `src/test/sse.ts` (msw is installed but not used yet). Never call the real LLM in tests.
+- Mock the network: stub `fetch` with the SSE helpers in `src/test/sse.ts`. Never call the real LLM in tests.
 - Test behavior (what the user sees), not implementation details.
