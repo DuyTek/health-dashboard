@@ -22,7 +22,26 @@ _Dashboard — TBD_
 
 <!-- assistant: owned by feat/assistant-ui -->
 
-_AI assistant — TBD_
+### AI assistant
+
+- **Floating launcher** in the bottom-right corner (respects safe-area insets). It
+  pulses while a reply is streaming and shows a dot when a reply finished while the
+  panel was closed.
+- **Responsive panel:** full-screen on phones; a non-modal 400×600 card on larger
+  screens, so the dashboard stays visible while you chat.
+- **Empty state** with five suggested questions ("How am I progressing?", "What
+  should I focus on?", …) as one-click chips.
+- **Streaming answers** rendered as markdown (headings, lists, bold, tables; raw
+  HTML is never rendered), with a typing indicator before the first token and a
+  caret while text arrives. The list follows new text unless you scroll up.
+- **Grounding cues:** each answer lists the metrics it relied on ("Based on:
+  steps, sleep") and offers up to three follow-up questions as chips.
+- **States:** Stop generation (partial text is kept), friendly inline errors per
+  error type (quota, timeout, missing API key, network…) with Retry, Clear
+  conversation, and a character limit with a counter.
+- **Keyboard & a11y:** Enter sends, Shift+Enter adds a newline, Escape closes
+  and returns focus to the launcher; the message list is an `aria-live` log.
+- Conversation history is kept in memory (Redux) only and is lost on refresh.
 
 ## Architecture
 
