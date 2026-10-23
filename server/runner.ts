@@ -9,6 +9,7 @@ import {
 } from '@google/adk'
 import type { ChatTurn } from '../src/types/chat.js'
 import type { HealthData, HealthSummary } from '../src/types/health.js'
+import type { ThinkingLevelSetting } from './config.js'
 import { AGENT_NAME, createHealthAgent } from './agent.js'
 
 // Runs one assistant turn through Google ADK. Stateless per request: a fresh
@@ -24,6 +25,8 @@ const MAX_LLM_CALLS = 6
 export interface AgentRunInput {
 	apiKey: string
 	model: string
+	/** See `getServerConfig().thinkingLevel`. */
+	thinkingLevel?: ThinkingLevelSetting | null
 	data: HealthData
 	summary: HealthSummary
 	/** Earlier turns, oldest first. The new message is not included. */
@@ -39,7 +42,12 @@ export type AgentRunner = (input: AgentRunInput) => AsyncIterable<unknown>
 
 export const runHealthAgent: AgentRunner = async function* (input) {
 	const model = input.llm ?? new Gemini({ model: input.model, apiKey: input.apiKey })
-	const agent = createHealthAgent({ model, summary: input.summary, data: input.data })
+	const agent = createHealthAgent({
+		model,
+		summary: input.summary,
+		data: input.data,
+		thinkingLevel: input.thinkingLevel,
+	})
 	const sessionService = new InMemorySessionService()
 	const runner = new Runner({ appName: APP_NAME, agent, sessionService })
 	const session = await sessionService.createSession({ appName: APP_NAME, userId: USER_ID })

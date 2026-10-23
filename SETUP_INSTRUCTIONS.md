@@ -17,11 +17,12 @@ The dashboard works without a key. Only the assistant needs `GEMINI_API_KEY`.
 
 ## Environment variables
 
-| Variable         | Required                | Default               | Where          | Description                                                                             |
-| ---------------- | ----------------------- | --------------------- | -------------- | --------------------------------------------------------------------------------------- |
-| `GEMINI_API_KEY` | Yes (for the assistant) | —                     | Server only    | Google AI Studio key used by the ADK agent. Never expose it to the client or commit it. |
-| `GEMINI_MODEL`   | No                      | `gemini-flash-latest` | Server only    | Gemini model id used by the agent.                                                      |
-| `API_PORT`       | No                      | `3001`                | Local dev only | Port for `server/dev-server.ts`. Vite proxies `/api` to it.                             |
+| Variable                | Required                | Default               | Where          | Description                                                                                                      |
+| ----------------------- | ----------------------- | --------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `GEMINI_API_KEY`        | Yes (for the assistant) | —                     | Server only    | Google AI Studio key used by the ADK agent. Never expose it to the client or commit it.                          |
+| `GEMINI_MODEL`          | No                      | `gemini-flash-latest` | Server only    | Gemini model id used by the agent.                                                                               |
+| `GEMINI_THINKING_LEVEL` | No                      | `LOW`                 | Server only    | `MINIMAL`/`LOW`/`MEDIUM`/`HIGH`, or `default` to use the model's own setting. LOW keeps first-token latency low. |
+| `API_PORT`              | No                      | `3001`                | Local dev only | Port for `server/dev-server.ts`. Vite proxies `/api` to it.                                                      |
 
 `.env` is git-ignored. `.env.example` lists every variable with an empty or default value.
 
@@ -74,15 +75,16 @@ _TBD: added at deployment time._
 Already in place: `api/chat.ts` is a Node.js Vercel function (not Edge) that
 streams SSE; its `export const config = { maxDuration: 60 }` gives headroom
 over the 45 s model timeout. Set `GEMINI_API_KEY` (and optionally
-`GEMINI_MODEL`) in the Vercel project's environment variables.
+`GEMINI_MODEL` / `GEMINI_THINKING_LEVEL`) in the Vercel project's environment variables.
 
 ## Troubleshooting
 
-| Symptom                                                                            | Fix                                                                                                                                       |
-| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `[api] GEMINI_API_KEY is not set` at startup / assistant says it is not configured | Copy `.env.example` to `.env`, add a key from https://aistudio.google.com/apikey, restart `npm run dev` (the dashboard works without it). |
-| Assistant says it is "receiving too many requests" (`rate_limited`)                | Free-tier quota (requests per minute/day) hit. Wait a minute, or use another key/project.                                                 |
-| Assistant says it is not configured but a key is set                               | The key was rejected (`API_KEY_INVALID`/403). Check it in AI Studio and that `.env` has no quotes or spaces.                              |
-| `[api] Port 3001 is already in use`                                                | Stop the other process, or set `API_PORT` and update the `/api` proxy target in `vite.config.ts` to match.                                |
-| Chat requests fail with a proxy error in the browser console                       | The API server isn't running. `npm run dev` starts both; `npm run dev:api` starts only the API.                                           |
-| Answers stop mid-way with a timeout                                                | The model took more than 45 s. Retry; if frequent, try a lighter `GEMINI_MODEL`.                                                          |
+| Symptom                                                                                       | Fix                                                                                                                                       |
+| --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `[api] GEMINI_API_KEY is not set` at startup / assistant says it is not configured            | Copy `.env.example` to `.env`, add a key from https://aistudio.google.com/apikey, restart `npm run dev` (the dashboard works without it). |
+| Assistant says it is "receiving too many requests" (`rate_limited`)                           | Free-tier quota (requests per minute/day) hit. Wait a minute, or use another key/project.                                                 |
+| Assistant says it is not configured but a key is set                                          | The key was rejected (`API_KEY_INVALID`/403). Check it in AI Studio and that `.env` has no quotes or spaces.                              |
+| `[api] Port 3001 is already in use`                                                           | Stop the other process, or set `API_PORT` and update the `/api` proxy target in `vite.config.ts` to match.                                |
+| Chat requests fail with a proxy error in the browser console                                  | The API server isn't running. `npm run dev` starts both; `npm run dev:api` starts only the API.                                           |
+| Answers stop mid-way with a timeout                                                           | The model took more than 45 s. Retry; if frequent, try a lighter `GEMINI_MODEL`.                                                          |
+| Every question fails with `upstream_error` and the API log shows a 400 about "thinking level" | The model behind `GEMINI_MODEL` doesn't support the configured level. Set `GEMINI_THINKING_LEVEL=default` (or another level).             |

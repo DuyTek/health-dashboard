@@ -8,7 +8,7 @@ import {
 	type ChatTurn,
 } from '../src/types/chat.js'
 import type { HealthData, HealthSummary } from '../src/types/health.js'
-import { getServerConfig } from './config.js'
+import { getServerConfig, type ThinkingLevelSetting } from './config.js'
 import {
 	BENIGN_FINISH_CODES,
 	classifyUpstreamError,
@@ -110,7 +110,7 @@ export function readAdkEvent(event: unknown): AdkEventView {
 
 export interface StreamChatDeps {
 	/** Defaults to `getServerConfig()`. */
-	config?: { apiKey: string; model: string }
+	config?: { apiKey: string; model: string; thinkingLevel?: ThinkingLevelSetting | null }
 	/** Defaults to the shared dataset + summary builder. */
 	loadHealth?: () => { data: HealthData; summary: HealthSummary }
 	/** Defaults to the ADK runner (loaded lazily). */
@@ -195,6 +195,7 @@ export async function* streamChat(
 		iterator = (deps.runAgent ?? defaultRunAgent)({
 			apiKey: config.apiKey,
 			model: config.model,
+			thinkingLevel: config.thinkingLevel,
 			data: health.data,
 			summary: health.summary,
 			history: validated.history,
