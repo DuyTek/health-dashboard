@@ -1,6 +1,8 @@
 # Key Product Decisions
 
-> Owned by `feat/health-data-dashboard`. Keep in sync with the code (see `.claude/CLAUDE.md`).
+Who the dashboard is for, what it shows and why, and what was left out. The
+assistant's prompt and data handling are covered in
+[LLM_APPROACH.md](./LLM_APPROACH.md).
 
 ## The user
 
@@ -36,7 +38,7 @@ In priority order, top to bottom on mobile:
    it.
 2. **Today at a glance:** steps, last night's sleep, resting HR, weight and BP.
    These five map directly to his three goals (BP, weight, energy). Each shows a
-   delta against his own 7-day average, not a population norm, coloured by
+   delta against his own 7-day average, not a population norm, colored by
    whether that change is _good for that metric_ (lower RHR, weight and BP are
    good). Readings not taken today say when they were last taken, so a
    Wednesday BP reading isn't mistaken for today's.
@@ -62,13 +64,21 @@ In priority order, top to bottom on mobile:
 On desktop, Insights and Goals move to a right rail beside Trends, so the
 "what to do" stays visible while he explores the charts.
 
+**The AI assistant** sits behind a floating button rather than in the page
+flow: the dashboard answers "how am I doing", and the assistant handles the
+follow-up questions. On desktop it opens as a non-modal card, so he can read the
+charts while asking about them; on phones it goes full-screen. Five suggested
+questions in the empty state show what it can answer, and each answer lists the
+metrics it was based on. Details in
+[LLM_APPROACH.md](./LLM_APPROACH.md#response-format--streaming).
+
 ## Visualizations
 
 | Metric          | Chart                                          | Why                                                                                                                             |
 | --------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | Steps           | Bars + dashed goal line                        | Daily totals are discrete amounts, and the goal line makes hits and misses obvious.                                             |
 | Active minutes  | Bars + goal line                               | Same reasoning as steps.                                                                                                        |
-| Sleep           | Stacked bars (deep / REM / light) + 7.5 h goal | Shows total and composition in one mark. Deep sleep is the darkest segment.                                                     |
+| Sleep           | Stacked bars (deep / REM / light) + 7.5 h goal | Shows total and composition in one mark. Deep sleep gets the strongest hue.                                                     |
 | Resting HR, HRV | Two small line charts side by side             | Different units, so no dual axis: a second y-scale invites false correlations.                                                  |
 | Blood pressure  | Two lines (systolic solid, diastolic dashed)   | Same unit (mmHg), so one axis works. Dots mark the actual readings (~3/week), and nulls are connected rather than plotted as 0. |
 | Weight          | Line with dots + goal line                     | Slow trend with sparse readings. A zoomed y-domain makes a 3 kg change visible.                                                 |
@@ -77,8 +87,11 @@ On desktop, Insights and Goals move to a right rail beside Trends, so the
 
 - At 90 days, bar charts become 90 slivers, so rows are **aggregated into ISO
   weekly averages** (`aggregateWeekly`), and the card says so.
-- All charts use the shadcn `ChartContainer` with theme `var(--chart-N)` colors,
-  a shared tooltip, and legends wherever there are two or more series.
+- All charts use the shadcn `ChartContainer` with a shared tooltip and legends
+  wherever there are two or more series. Colors come from a 5-hue categorical
+  palette (`--chart-1..5` in `src/index.css`, tuned separately for light and dark
+  mode). Legends, and dashes for diastolic BP, back up color, so no series relies
+  on hue alone.
 - Every chart has a one-line caption (e.g. "Avg 8,446 a day, last 30 days ·
   goal 8,000"). It is also the accessible summary of the `<figure>`.
 - Animations are off. The charts are meant to be read, not watched, and range
@@ -146,9 +159,6 @@ On desktop, Insights and Goals move to a right rail beside Trends, so the
   statistical test, and noisy metrics can flip near the threshold.
 - Weekly aggregation averages whatever days exist, so a week with two logged
   meals counts the same as a full week.
-- Chart colors are a 5-hue categorical palette (`--chart-1..5` in
-  `src/index.css`, tuned separately for light and dark mode). Legends, and
-  dashes for diastolic BP, back up color, so no series relies on hue alone.
 - Charts are not keyboard-explorable point by point. The caption and the
   insights carry the key numbers instead.
 
