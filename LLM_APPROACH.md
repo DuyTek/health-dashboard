@@ -102,7 +102,7 @@ Retry removes the failed answer and re-asks the same question with the same hist
 
 ## Preventing invented information
 
-- The prompt contains only real, rounded numbers, with `null` for missing data, delimited in `<health_summary>` and labelled as data, not instructions.
+- The prompt contains only real, rounded numbers, with `null` for missing data, delimited in `<health_summary>` and labeled as data, not instructions.
 - Explicit rules: only use the summary/tool results, never estimate, name untracked measures (glucose, cholesterol, …) as untracked, admit sparse data, cite metric + period.
 - Tools give exact values on demand, so the model has no reason to guess day-level numbers.
 - Low temperature (0.3); date anchoring ("Today is 2026-10-22", "this week" = the 7 days ending then) so relative periods resolve against the dataset, not the wall clock.
