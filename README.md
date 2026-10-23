@@ -18,7 +18,27 @@ assistant that answers questions grounded in the user's own data.
 
 <!-- dashboard: owned by feat/health-data-dashboard -->
 
-_Dashboard — TBD_
+**Dashboard** (`src/features/dashboard`), built for Daniel, a 38-year-old desk
+worker with elevated blood pressure who started a walking routine six weeks ago:
+
+- **Today at a glance:** steps, last night's sleep, resting HR, weight and BP,
+  each compared with his 7-day average and coloured by whether the change is good
+  for that metric.
+- **What to focus on:** deterministic, rule-based insights (warnings first),
+  such as short sleep, low protein, steps up 39%, BP and resting HR trending
+  down, and late bedtimes costing sleep.
+- **Goals:** progress from baseline toward six targets, with achieved / on-track /
+  needs-attention status.
+- **Trends:** a 7/30/90-day toggle across Activity, Sleep (stacked stages),
+  Heart (RHR, HRV, BP), Weight and Nutrition, with goal reference lines. 90-day
+  bars are aggregated weekly.
+- **Recent activities** with 7-day totals.
+- Skeleton loading, error with retry, empty states per chart and list,
+  mobile-first layout, and accessible chart captions.
+- Data comes from a deterministic seeded 90-day dataset (`src/data`). The pure
+  summary and insight logic (`src/lib/health`) is shared with the AI assistant.
+
+See [KEY_PRODUCT_DECISIONS.md](./KEY_PRODUCT_DECISIONS.md) for the reasoning.
 
 <!-- assistant: owned by feat/assistant-ui -->
 

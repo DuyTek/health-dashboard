@@ -1,0 +1,105 @@
+import type { ActivityType, GoalProgress, Insight } from '@/types/health'
+
+// User-facing copy for the dashboard feature.
+
+export const DASHBOARD_COPY = {
+	regionLabel: 'Health dashboard',
+	greeting: (firstName: string) => `Hi ${firstName}`,
+	asOf: (date: string) => `Your health as of ${date}`,
+	trackingSince: (date: string) => `Tracking since ${date}`,
+	loadingLabel: 'Loading your health data',
+	error: {
+		title: "We couldn't load your health data",
+		fallback: 'Something went wrong. Please try again.',
+		retry: 'Try again',
+	},
+	empty: {
+		title: 'No health data yet',
+		body: 'Connect a device or log your first day to see your dashboard.',
+	},
+	glance: {
+		title: 'Today at a glance',
+		vsAvg: 'vs 7-day avg',
+		better: 'better than your 7-day average',
+		worse: 'worse than your 7-day average',
+		same: 'about the same as your 7-day average',
+		noData: 'No reading',
+		lastReading: (date: string) => `Last reading ${date}`,
+		labels: {
+			steps: 'Steps',
+			sleep: 'Sleep last night',
+			rhr: 'Resting heart rate',
+			weight: 'Weight',
+			bp: 'Blood pressure',
+		},
+	},
+	goals: {
+		title: 'Goals',
+		description: 'Progress from where you started toward each target',
+		empty: 'No goals set yet.',
+		current: 'Now',
+		target: 'Target',
+		basis: { avg7: '7-day average', latest: 'latest reading' },
+		status: {
+			achieved: 'Achieved',
+			'on-track': 'On track',
+			behind: 'Needs attention',
+			'no-data': 'No data',
+		} satisfies Record<GoalProgress['status'], string>,
+	},
+	insights: {
+		title: 'What to focus on',
+		description: 'Based on your recent data. Not medical advice.',
+		empty: 'Nothing stands out right now. Keep logging and check back.',
+		showAll: (count: number) => `Show all ${count}`,
+		showLess: 'Show fewer',
+		severity: {
+			warning: 'Needs attention',
+			positive: 'Going well',
+			info: 'Good to know',
+		} satisfies Record<Insight['severity'], string>,
+	},
+	trends: {
+		title: 'Trends',
+		description: 'How your numbers are moving',
+		rangeLabel: 'Time range',
+		ranges: { 7: '7D', 30: '30D', 90: '90D' },
+		rangeNames: { 7: 'last 7 days', 30: 'last 30 days', 90: 'last 90 days' },
+		weeklyNote: 'Weekly averages',
+		tabs: {
+			activity: 'Activity',
+			sleep: 'Sleep',
+			heart: 'Heart',
+			body: 'Weight',
+			nutrition: 'Nutrition',
+		},
+		emptyChart: 'No data for this period.',
+		charts: {
+			steps: 'Daily steps',
+			activeMinutes: 'Active minutes',
+			sleepStages: 'Sleep stages',
+			restingHeartRate: 'Resting heart rate',
+			hrv: 'Heart rate variability (HRV)',
+			bloodPressure: 'Blood pressure',
+			weight: 'Weight',
+			calories: 'Calories eaten, by macro',
+			protein: 'Protein',
+		},
+		goalLine: 'Goal',
+	},
+	activities: {
+		title: 'Recent activities',
+		description: (sessions: number, minutes: number) =>
+			`${sessions} sessions · ${minutes} min in the last 7 days`,
+		empty: 'No workouts logged yet. Your walks and rides will show up here.',
+		types: {
+			run: 'Run',
+			walk: 'Walk',
+			cycle: 'Ride',
+			strength: 'Strength',
+			yoga: 'Yoga',
+			swim: 'Swim',
+		} satisfies Record<ActivityType, string>,
+		avgHr: (bpm: number) => `${bpm} bpm avg`,
+	},
+} as const
