@@ -26,8 +26,8 @@ interface SleepChartProps extends TrendChartProps {
 
 // Deep is darkest: it's the stage people usually care most about.
 const sleepConfig = {
-	deepH: { label: 'Deep (h)', color: 'var(--chart-5)' },
-	remH: { label: 'REM (h)', color: 'var(--chart-3)' },
+	deepH: { label: 'Deep (h)', color: 'var(--chart-3)' },
+	remH: { label: 'REM (h)', color: 'var(--chart-2)' },
 	lightH: { label: 'Light (h)', color: 'var(--chart-1)' },
 } satisfies ChartConfig
 

@@ -146,8 +146,9 @@ On desktop, Insights and Goals move to a right rail beside Trends, so the
   statistical test, and noisy metrics can flip near the threshold.
 - Weekly aggregation averages whatever days exist, so a week with two logged
   meals counts the same as a full week.
-- Chart colors come from the base (neutral/grayscale) shadcn theme. Series are
-  told apart by lightness, legends, and dashes for BP rather than by hue.
+- Chart colors are a 5-hue categorical palette (`--chart-1..5` in
+  `src/index.css`, tuned separately for light and dark mode). Legends, and
+  dashes for diastolic BP, back up color, so no series relies on hue alone.
 - Charts are not keyboard-explorable point by point. The caption and the
   insights carry the key numbers instead.
 
